@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Landslide Monitoring System | भूस्खलन निगरानी प्रणाली</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- favicon can be added later -->
+</head>
+<body>
+
+<!-- tricolor strip -->
+<div class="tricolor">
+    <div class="tri-s"></div>
+    <div class="tri-w"></div>
+    <div class="tri-g"></div>
+</div>
+
+<div class="topbar-wrap">
+<div class="topbar">
+    <span>भारत सरकार | Government of India</span>
+    <div class="topbar-right">
+        <a href="index.html" class="top-btn top-btn-home">🏠 Home</a>
+        <a href="contact.html#feedback" class="top-btn top-btn-feedback">📝 Feedback</a>
+        <a href="contact.html#complaint" class="top-btn top-btn-complaint">⚠️ Complaint</a>
+    </div>
+</div>
+</div>
+
+<header class="header">
+    <div class="container">
+        <h1>National Landslide Monitoring System</h1>
+        <p class="hindi">राष्ट्रीय भूस्खलन निगरानी प्रणाली</p>
+        <p class="ministry">Ministry of Earth Sciences | पृथ्वी विज्ञान मंत्रालय</p>
+    </div>
+</header>
+
+<!-- main navigation -->
+<nav>
+    <div class="container">
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="alerts.html">Alerts</a></li>
+            <li><a href="zones.html">Vulnerable Zones</a></li>
+            <li><a href="guidelines.html">Guidelines</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+
+    <!--
+        City selector section
+        Users pick a state first, then choose a city
+        from the scrollable row of buttons
+    -->
+    <div class="slider-section">
+        <h2>Select Your City to Check Landslide Risk</h2>
+        <p>Choose a state, then pick a city to view weather, soil conditions &amp; 2-day forecast</p>
+
+        <div class="state-tabs" id="stateTabs">
+            <!-- filled by javascript below -->
+        </div>
+
+        <div class="city-chips-wrap">
+            <div class="city-chips" id="cityChips">
+                <!-- filled when a state is selected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- this shows up when you click on a city -->
+    <div class="city-detail" id="cityDetail">
+        <div class="cd-header">
+            <div>
+                <div class="cd-title" id="cdTitle">City Name</div>
+                <div class="cd-sub" id="cdSub">District, State</div>
+                <div class="cd-coords" id="cdCoords"></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span id="cdBadge"></span>
+                <button class="cd-close" onclick="closeDetail()">✕ Close</button>
+            </div>
+        </div>
+        <div class="cd-status" id="cdStatus"></div>
+
+        <div class="cd-label">Current Conditions</div>
+        <div class="cd-grid" id="cdGrid"></div>
+
+        <div class="cd-label">2-Day Forecast</div>
+        <div class="cd-forecast" id="cdForecast"></div>
+    </div>
+    <!-- end city detail -->
+
+
+    <!-- status cards showing how many alerts are active right now -->
+    <div class="panel">
+        <h2 class="stitle">Current Risk Status <small>As on: 13-09-2026, 14:30 IST</small></h2>
+        <div class="cards">
+            <div class="card r">
+                <div class="num">04</div>
+                <div class="lbl">Red Alert</div>
+                <div class="sub">Extreme Risk</div>
+            </div>
+            <div class="card o">
+                <div class="num">12</div>
+                <div class="lbl">Orange Alert</div>
+                <div class="sub">High Risk</div>
+            </div>
+            <div class="card y">
+                <div class="num">23</div>
+                <div class="lbl">Yellow Alert</div>
+                <div class="sub">Moderate Risk</div>
+            </div>
+            <div class="card g">
+                <div class="num">158</div>
+                <div class="lbl">Normal</div>
+                <div class="sub">Low Risk</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- two column layout: main content + sidebar -->
+    <div class="cols">
+        <div class="col-main">
+
+            <!-- recent alerts table -->
+            <div class="panel">
+                <h2 class="stitle">Recent Alerts</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>State</th>
+                            <th>District</th>
+                            <th>Level</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>13-09-2026</td>
+                            <td>Uttarakhand</td>
+                            <td>Chamoli</td>
+                            <td><span class="b br">RED</span></td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>13-09-2026</td>
+                            <td>Himachal Pradesh</td>
+                            <td>Kinnaur</td>
+                            <td><span class="b br">RED</span></td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>13-09-2026</td>
+                            <td>Uttarakhand</td>
+                            <td>Pithoragarh</td>
+                            <td><span class="b br">RED</span></td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>13-09-2026</td>
+                            <td>Sikkim</td>
+                            <td>Gangtok</td>
+                            <td><span class="b br">RED</span></td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>12-09-2026</td>
+                            <td>Kerala</td>
+                            <td>Wayanad</td>
+                            <td><span class="b bo">ORANGE</span></td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>12-09-2026</td>
+                            <td>Meghalaya</td>
+                            <td>E. Khasi Hills</td>
+                            <td><span class="b bo">ORANGE</span></td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>12-09-2026</td>
+                            <td>Arunachal Pradesh</td>
+                            <td>Tawang</td>
+                            <td><span class="b bo">ORANGE</span></td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>11-09-2026</td>
+                            <td>Mizoram</td>
+                            <td>Aizawl</td>
+                            <td><span class="b by">YELLOW</span></td>
+                            <td>Monitoring</td>
+                        </tr>
+                        <tr>
+                            <td>11-09-2026</td>
+                            <td>Nagaland</td>
+                            <td>Kohima</td>
+                            <td><span class="b by">YELLOW</span></td>
+                            <td>Monitoring</td>
+                        </tr>
+                        <tr>
+                            <td>10-09-2026</td>
+                            <td>Tamil Nadu</td>
+                            <td>Nilgiris</td>
+                            <td><span class="b by">YELLOW</span></td>
+                            <td>Resolved</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="alerts.html" class="view-all">View All Alerts &raquo;</a>
+            </div>
+
+            <!-- yearly incidents summary -->
+            <div class="panel">
+                <h2 class="stitle">Incidents — 2026 (State-wise)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>State</th>
+                            <th>Incidents</th>
+                            <th>Casualties</th>
+                            <th>Affected</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Uttarakhand</td><td>34</td><td>18</td><td>4,520</td></tr>
+                        <tr><td>2</td><td>Himachal Pradesh</td><td>28</td><td>12</td><td>3,890</td></tr>
+                        <tr><td>3</td><td>Kerala</td><td>22</td><td>31</td><td>8,200</td></tr>
+                        <tr><td>4</td><td>Sikkim</td><td>15</td><td>7</td><td>1,540</td></tr>
+                        <tr><td>5</td><td>Meghalaya</td><td>12</td><td>4</td><td>980</td></tr>
+                        <tr><td>6</td><td>Arunachal Pradesh</td><td>11</td><td>3</td><td>720</td></tr>
+                        <tr><td>7</td><td>Mizoram</td><td>9</td><td>2</td><td>610</td></tr>
+                        <tr><td>8</td><td>Nagaland</td><td>8</td><td>1</td><td>340</td></tr>
+                        <tr><td>9</td><td>Jammu &amp; Kashmir</td><td>7</td><td>5</td><td>1,200</td></tr>
+                        <tr><td>10</td><td>Tamil Nadu (Nilgiris)</td><td>6</td><td>3</td><td>560</td></tr>
+                        <tr class="total-row">
+                            <td colspan="2"><strong>Total</strong></td>
+                            <td><strong>152</strong></td>
+                            <td><strong>86</strong></td>
+                            <td><strong>22,560</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="tnote">* Provisional data. Source: GSI &amp; NDMA field reports.</p>
+            </div>
+
+        </div><!-- end col-main -->
+
+        <!-- sidebar -->
+        <div class="col-side">
+
+            <div class="sbox helpline">
+                <h3>Emergency Helpline</h3>
+                <div class="sbox-body">
+                    <div class="big">1800-180-1111</div>
+                    <p>24×7 Toll-Free</p>
+                    <div class="sm">112</div>
+                    <p>National Emergency</p>
+                </div>
+            </div>
+
+            <div class="sbox">
+                <h3>Do's &amp; Don'ts</h3>
+                <div class="sbox-body">
+                    <p class="do-title">✅ Do's</p>
+                    <ul class="tips do-list">
+                        <li>Move to higher ground immediately</li>
+                        <li>Listen for unusual sounds like rumbling</li>
+                        <li>Keep emergency kit ready during monsoon</li>
+                        <li>Report any cracks to local authorities</li>
+                        <li>Follow evacuation orders without delay</li>
+                    </ul>
+                    <p class="dnt-title">❌ Don'ts</p>
+                    <ul class="tips dnt-list">
+                        <li>Don't build houses near steep slopes</li>
+                        <li>Don't ignore early warning signs</li>
+                        <li>Don't cut trees on hill slopes</li>
+                        <li>Don't block natural drainage channels</li>
+                        <li>Don't panic — stay calm and alert</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sbox">
+                <h3>Important Links</h3>
+                <div class="sbox-body">
+                    <ul>
+                        <li><a href="#">Geological Survey of India</a></li>
+                        <li><a href="#">NDMA</a></li>
+                        <li><a href="#">India Meteorological Dept.</a></li>
+                        <li><a href="#">National Remote Sensing Centre</a></li>
+                        <li><a href="#">Ministry of Earth Sciences</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sbox">
+                <h3>Downloads</h3>
+                <div class="sbox-body">
+                    <ul>
+                        <li><a href="#">Landslide Risk Atlas (PDF)</a></li>
+                        <li><a href="#">NDMA Guidelines (PDF)</a></li>
+                        <li><a href="#">Annual Report 2025-26</a></li>
+                        <li><a href="#">Susceptibility Maps</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div><!-- end col-side -->
+    </div><!-- end cols -->
+
+
+    <!-- about section at the bottom -->
+    <div class="panel">
+        <h2 class="stitle">About NLMS</h2>
+        <p style="font-size: 13px; margin-bottom: 8px;">
+            The <strong>National Landslide Monitoring System (NLMS)</strong> is an initiative
+            under the Ministry of Earth Sciences, Government of India. It provides real-time
+            monitoring, early warning, and risk assessment for landslide-prone regions across
+            the country. Data is collected from GSI, IMD, NRSC, and various state-level
+            disaster management authorities.
+        </p>
+        <p style="font-size: 13px;">
+            Around <strong>12.6%</strong> of India's land area is susceptible to landslides.
+            The NLMS currently monitors over <strong>147 high-risk zones</strong> using a
+            combination of ground-based sensors, satellite images, rainfall data, and
+            predictive modelling. Alerts are color-coded as
+            <span class="b br">RED</span>
+            <span class="b bo">ORANGE</span>
+            <span class="b by">YELLOW</span>
+            <span class="b bg">GREEN</span>
+            and sent out via SMS, email, and this web portal.
+        </p>
+    </div>
+
+</main>
+
+<footer>
+    <div class="container">
+        <p>Content Owned &amp; Maintained by Ministry of Earth Sciences, Government of India</p>
+        <p>Designed &amp; Developed by National Informatics Centre (NIC) | Last Updated: 13-09-2026</p>
+    </div>
+</footer>
+
+<!-- bottom tricolor -->
+<div class="tricolor">
+    <div class="tri-s"></div>
+    <div class="tri-w"></div>
+    <div class="tri-g"></div>
+</div>
+
+
+<!--
+    JavaScript for the city selector
+    All city data is hardcoded - no external APIs
+    Data sources: GSI/IMD reports (sample/representative values)
+-->
+<script>
+
+// all city data stored here
+// each entry has current weather + 2 day forecast
+var allCities = [
+
+    // ---------- UTTARAKHAND ----------
+
+    { city: "Joshimath", district: "Chamoli", state: "Uttarakhand",
+      lat: 30.55, lon: 79.56, elev: 1875,
+      level: "RED", alertClass: "br", dotClass: "dr",
+      temp: 11, rain: 184, wind: 52, humidity: 97, soilMoisture: 94, slope: 42,
+      weather: "Heavy Rain & Thunderstorm",
+      forecast: [
+          { date: "14-Sep", high: 13, low: 8, rain: 162, wind: 48, humidity: 96, condition: "Very Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 15, low: 9, rain: 98, wind: 36, humidity: 90, condition: "Heavy Rain", icon: "🌧️" }
+      ]
+    },
+
+    { city: "Chamoli", district: "Chamoli", state: "Uttarakhand",
+      lat: 30.40, lon: 79.33, elev: 1310,
+      level: "RED", alertClass: "br", dotClass: "dr",
+      temp: 12, rain: 172, wind: 48, humidity: 96, soilMoisture: 91, slope: 38,
+      weather: "Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 14, low: 9, rain: 148, wind: 44, humidity: 95, condition: "Heavy Rain & Fog", icon: "🌧️" },
+          { date: "15-Sep", high: 16, low: 10, rain: 86, wind: 32, humidity: 88, condition: "Moderate to Heavy Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Dharchula", district: "Pithoragarh", state: "Uttarakhand",
+      lat: 29.85, lon: 80.53, elev: 915,
+      level: "RED", alertClass: "br", dotClass: "dr",
+      temp: 14, rain: 198, wind: 55, humidity: 98, soilMoisture: 96, slope: 45,
+      weather: "Cloudburst Warning",
+      forecast: [
+          { date: "14-Sep", high: 15, low: 10, rain: 176, wind: 52, humidity: 97, condition: "Extremely Heavy Rain", icon: "⛈️" },
+          { date: "15-Sep", high: 17, low: 11, rain: 112, wind: 40, humidity: 92, condition: "Heavy Rain", icon: "🌧️" }
+      ]
+    },
+
+    { city: "Pithoragarh", district: "Pithoragarh", state: "Uttarakhand",
+      lat: 29.58, lon: 80.22, elev: 1514,
+      level: "RED", alertClass: "br", dotClass: "dr",
+      temp: 15, rain: 165, wind: 46, humidity: 95, soilMoisture: 89, slope: 35,
+      weather: "Very Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 16, low: 11, rain: 142, wind: 42, humidity: 94, condition: "Very Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 18, low: 12, rain: 78, wind: 30, humidity: 86, condition: "Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Kedarnath", district: "Rudraprayag", state: "Uttarakhand",
+      lat: 30.73, lon: 79.07, elev: 3583,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 6, rain: 132, wind: 42, humidity: 93, soilMoisture: 85, slope: 48,
+      weather: "Heavy Rain & Fog",
+      forecast: [
+          { date: "14-Sep", high: 8, low: 3, rain: 118, wind: 38, humidity: 92, condition: "Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 9, low: 4, rain: 72, wind: 28, humidity: 86, condition: "Moderate Rain & Mist", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Uttarkashi", district: "Uttarkashi", state: "Uttarakhand",
+      lat: 30.73, lon: 78.45, elev: 1158,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 14, rain: 124, wind: 40, humidity: 90, soilMoisture: 80, slope: 36,
+      weather: "Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 16, low: 10, rain: 108, wind: 36, humidity: 89, condition: "Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 18, low: 12, rain: 66, wind: 26, humidity: 82, condition: "Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Nainital", district: "Nainital", state: "Uttarakhand",
+      lat: 29.38, lon: 79.45, elev: 2084,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 16, rain: 82, wind: 30, humidity: 86, soilMoisture: 72, slope: 28,
+      weather: "Light to Moderate Rain",
+      forecast: [
+          { date: "14-Sep", high: 18, low: 12, rain: 72, wind: 26, humidity: 84, condition: "Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 20, low: 14, rain: 42, wind: 18, humidity: 78, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Mussoorie", district: "Dehradun", state: "Uttarakhand",
+      lat: 30.45, lon: 78.08, elev: 2005,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 17, rain: 68, wind: 26, humidity: 82, soilMoisture: 65, slope: 25,
+      weather: "Light Rain & Mist",
+      forecast: [
+          { date: "14-Sep", high: 19, low: 13, rain: 56, wind: 22, humidity: 80, condition: "Light Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 21, low: 15, rain: 28, wind: 16, humidity: 74, condition: "Mostly Cloudy", icon: "☁️" }
+      ]
+    },
+
+    { city: "Dehradun", district: "Dehradun", state: "Uttarakhand",
+      lat: 30.32, lon: 78.03, elev: 435,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 26, rain: 22, wind: 14, humidity: 72, soilMoisture: 45, slope: 8,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 28, low: 20, rain: 18, wind: 12, humidity: 70, condition: "Light Rain", icon: "🌤️" },
+          { date: "15-Sep", high: 29, low: 21, rain: 8, wind: 10, humidity: 66, condition: "Mostly Clear", icon: "☀️" }
+      ]
+    },
+
+    { city: "Haridwar", district: "Haridwar", state: "Uttarakhand",
+      lat: 29.95, lon: 78.16, elev: 249,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 28, rain: 12, wind: 10, humidity: 68, soilMoisture: 38, slope: 4,
+      weather: "Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 30, low: 22, rain: 8, wind: 10, humidity: 66, condition: "Partly Cloudy", icon: "⛅" },
+          { date: "15-Sep", high: 31, low: 23, rain: 4, wind: 8, humidity: 62, condition: "Mostly Clear", icon: "☀️" }
+      ]
+    },
+
+    // ---------- HIMACHAL PRADESH ----------
+
+    { city: "Kalpa", district: "Kinnaur", state: "Himachal Pradesh",
+      lat: 31.53, lon: 78.26, elev: 2759,
+      level: "RED", alertClass: "br", dotClass: "dr",
+      temp: 10, rain: 156, wind: 50, humidity: 96, soilMoisture: 92, slope: 44,
+      weather: "Very Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 12, low: 6, rain: 138, wind: 46, humidity: 95, condition: "Very Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 14, low: 8, rain: 82, wind: 34, humidity: 88, condition: "Heavy Rain", icon: "🌧️" }
+      ]
+    },
+
+    { city: "Manali", district: "Kullu", state: "Himachal Pradesh",
+      lat: 32.24, lon: 77.19, elev: 2050,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 14, rain: 108, wind: 36, humidity: 89, soilMoisture: 78, slope: 32,
+      weather: "Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 16, low: 10, rain: 92, wind: 32, humidity: 88, condition: "Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 18, low: 12, rain: 54, wind: 22, humidity: 80, condition: "Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Kullu", district: "Kullu", state: "Himachal Pradesh",
+      lat: 31.96, lon: 77.11, elev: 1220,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 18, rain: 96, wind: 32, humidity: 87, soilMoisture: 75, slope: 28,
+      weather: "Continuous Rain",
+      forecast: [
+          { date: "14-Sep", high: 20, low: 14, rain: 84, wind: 28, humidity: 86, condition: "Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 22, low: 15, rain: 48, wind: 20, humidity: 78, condition: "Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Shimla", district: "Shimla", state: "Himachal Pradesh",
+      lat: 31.10, lon: 77.17, elev: 2276,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 18, rain: 64, wind: 24, humidity: 82, soilMoisture: 64, slope: 22,
+      weather: "Light Rain",
+      forecast: [
+          { date: "14-Sep", high: 20, low: 14, rain: 52, wind: 20, humidity: 80, condition: "Light to Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 22, low: 16, rain: 28, wind: 14, humidity: 74, condition: "Mostly Cloudy", icon: "☁️" }
+      ]
+    },
+
+    { city: "Dharamshala", district: "Kangra", state: "Himachal Pradesh",
+      lat: 32.22, lon: 76.32, elev: 1457,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 20, rain: 72, wind: 26, humidity: 84, soilMoisture: 67, slope: 26,
+      weather: "Moderate Rain",
+      forecast: [
+          { date: "14-Sep", high: 22, low: 16, rain: 58, wind: 22, humidity: 82, condition: "Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 24, low: 18, rain: 32, wind: 16, humidity: 76, condition: "Light Rain", icon: "🌤️" }
+      ]
+    },
+
+    { city: "Solan", district: "Solan", state: "Himachal Pradesh",
+      lat: 30.91, lon: 77.10, elev: 1502,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 22, rain: 24, wind: 14, humidity: 70, soilMoisture: 42, slope: 12,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 24, low: 18, rain: 18, wind: 12, humidity: 68, condition: "Mostly Cloudy", icon: "☁️" },
+          { date: "15-Sep", high: 26, low: 19, rain: 8, wind: 10, humidity: 64, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    // ---------- SIKKIM ----------
+
+    { city: "Gangtok", district: "Gangtok", state: "Sikkim",
+      lat: 27.33, lon: 88.62, elev: 1650,
+      level: "RED", alertClass: "br", dotClass: "dr",
+      temp: 15, rain: 178, wind: 46, humidity: 97, soilMoisture: 93, slope: 38,
+      weather: "Very Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 17, low: 11, rain: 158, wind: 42, humidity: 96, condition: "Heavy Rain & Thunder", icon: "⛈️" },
+          { date: "15-Sep", high: 18, low: 12, rain: 96, wind: 32, humidity: 90, condition: "Heavy Rain", icon: "🌧️" }
+      ]
+    },
+
+    { city: "Mangan", district: "Mangan", state: "Sikkim",
+      lat: 27.51, lon: 88.52, elev: 1198,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 13, rain: 134, wind: 40, humidity: 92, soilMoisture: 84, slope: 36,
+      weather: "Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 15, low: 9, rain: 118, wind: 36, humidity: 91, condition: "Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 16, low: 10, rain: 72, wind: 26, humidity: 84, condition: "Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Namchi", district: "Namchi", state: "Sikkim",
+      lat: 27.17, lon: 88.36, elev: 1314,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 18, rain: 68, wind: 22, humidity: 82, soilMoisture: 62, slope: 24,
+      weather: "Light to Moderate Rain",
+      forecast: [
+          { date: "14-Sep", high: 20, low: 14, rain: 56, wind: 20, humidity: 80, condition: "Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 22, low: 16, rain: 32, wind: 14, humidity: 74, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    // ---------- KERALA ----------
+
+    { city: "Wayanad", district: "Wayanad", state: "Kerala",
+      lat: 11.69, lon: 76.08, elev: 780,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 22, rain: 142, wind: 38, humidity: 94, soilMoisture: 88, slope: 30,
+      weather: "Very Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 24, low: 19, rain: 128, wind: 34, humidity: 93, condition: "Very Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 25, low: 20, rain: 78, wind: 26, humidity: 86, condition: "Heavy Rain", icon: "🌧️" }
+      ]
+    },
+
+    { city: "Munnar", district: "Idukki", state: "Kerala",
+      lat: 10.09, lon: 77.06, elev: 1532,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 16, rain: 128, wind: 34, humidity: 92, soilMoisture: 86, slope: 32,
+      weather: "Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 18, low: 13, rain: 112, wind: 30, humidity: 91, condition: "Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 19, low: 14, rain: 68, wind: 22, humidity: 84, condition: "Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Kozhikode", district: "Kozhikode", state: "Kerala",
+      lat: 11.25, lon: 75.77, elev: 15,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 26, rain: 72, wind: 28, humidity: 85, soilMoisture: 68, slope: 12,
+      weather: "Moderate Rain",
+      forecast: [
+          { date: "14-Sep", high: 28, low: 23, rain: 58, wind: 24, humidity: 83, condition: "Light to Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 29, low: 24, rain: 34, wind: 18, humidity: 78, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Kochi", district: "Ernakulam", state: "Kerala",
+      lat: 9.93, lon: 76.26, elev: 9,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 28, rain: 32, wind: 18, humidity: 78, soilMoisture: 48, slope: 3,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 30, low: 24, rain: 24, wind: 16, humidity: 76, condition: "Light Rain", icon: "🌤️" },
+          { date: "15-Sep", high: 31, low: 25, rain: 12, wind: 14, humidity: 72, condition: "Mostly Clear", icon: "☀️" }
+      ]
+    },
+
+    { city: "Thiruvananthapuram", district: "Thiruvananthapuram", state: "Kerala",
+      lat: 8.52, lon: 76.94, elev: 10,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 29, rain: 18, wind: 16, humidity: 74, soilMoisture: 40, slope: 5,
+      weather: "Mostly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 31, low: 25, rain: 14, wind: 14, humidity: 72, condition: "Partly Cloudy", icon: "⛅" },
+          { date: "15-Sep", high: 32, low: 26, rain: 6, wind: 12, humidity: 68, condition: "Mostly Clear", icon: "☀️" }
+      ]
+    },
+
+    // ---------- MEGHALAYA ----------
+
+    { city: "Cherrapunji", district: "E. Khasi Hills", state: "Meghalaya",
+      lat: 25.30, lon: 91.70, elev: 1484,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 18, rain: 210, wind: 44, humidity: 98, soilMoisture: 95, slope: 36,
+      weather: "Extremely Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 20, low: 15, rain: 192, wind: 40, humidity: 98, condition: "Extremely Heavy Rain", icon: "⛈️" },
+          { date: "15-Sep", high: 21, low: 16, rain: 124, wind: 32, humidity: 94, condition: "Very Heavy Rain", icon: "🌧️" }
+      ]
+    },
+
+    { city: "Shillong", district: "E. Khasi Hills", state: "Meghalaya",
+      lat: 25.57, lon: 91.88, elev: 1496,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 19, rain: 78, wind: 26, humidity: 86, soilMoisture: 70, slope: 20,
+      weather: "Moderate Rain",
+      forecast: [
+          { date: "14-Sep", high: 21, low: 15, rain: 64, wind: 22, humidity: 84, condition: "Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 22, low: 16, rain: 38, wind: 16, humidity: 78, condition: "Light Rain", icon: "🌤️" }
+      ]
+    },
+
+    // ---------- NE STATES ----------
+
+    { city: "Tawang", district: "Tawang", state: "Arunachal Pradesh",
+      lat: 27.59, lon: 91.86, elev: 3048,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 10, rain: 126, wind: 40, humidity: 92, soilMoisture: 84, slope: 38,
+      weather: "Heavy Rain & Snowmelt",
+      forecast: [
+          { date: "14-Sep", high: 12, low: 6, rain: 108, wind: 36, humidity: 91, condition: "Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 13, low: 7, rain: 64, wind: 26, humidity: 84, condition: "Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Itanagar", district: "Papum Pare", state: "Arunachal Pradesh",
+      lat: 27.10, lon: 93.62, elev: 350,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 24, rain: 68, wind: 24, humidity: 84, soilMoisture: 66, slope: 18,
+      weather: "Moderate Rain",
+      forecast: [
+          { date: "14-Sep", high: 26, low: 20, rain: 54, wind: 20, humidity: 82, condition: "Light to Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 27, low: 21, rain: 32, wind: 16, humidity: 76, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Aizawl", district: "Aizawl", state: "Mizoram",
+      lat: 23.73, lon: 92.72, elev: 1132,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 22, rain: 82, wind: 28, humidity: 88, soilMoisture: 72, slope: 28,
+      weather: "Moderate to Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 24, low: 18, rain: 68, wind: 24, humidity: 86, condition: "Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 25, low: 19, rain: 42, wind: 18, humidity: 80, condition: "Light Rain", icon: "🌤️" }
+      ]
+    },
+
+    { city: "Kohima", district: "Kohima", state: "Nagaland",
+      lat: 25.67, lon: 94.11, elev: 1444,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 20, rain: 72, wind: 24, humidity: 84, soilMoisture: 66, slope: 26,
+      weather: "Moderate Rain",
+      forecast: [
+          { date: "14-Sep", high: 22, low: 16, rain: 58, wind: 20, humidity: 82, condition: "Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 23, low: 17, rain: 34, wind: 16, humidity: 76, condition: "Light Rain", icon: "🌤️" }
+      ]
+    },
+
+    { city: "Dimapur", district: "Dimapur", state: "Nagaland",
+      lat: 25.91, lon: 93.73, elev: 260,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 28, rain: 26, wind: 14, humidity: 74, soilMoisture: 42, slope: 6,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 30, low: 22, rain: 18, wind: 12, humidity: 72, condition: "Mostly Cloudy", icon: "☁️" },
+          { date: "15-Sep", high: 31, low: 23, rain: 8, wind: 10, humidity: 68, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Imphal", district: "Imphal West", state: "Manipur",
+      lat: 24.82, lon: 93.95, elev: 786,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 26, rain: 22, wind: 12, humidity: 72, soilMoisture: 40, slope: 4,
+      weather: "Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 28, low: 20, rain: 16, wind: 12, humidity: 70, condition: "Mostly Cloudy", icon: "☁️" },
+          { date: "15-Sep", high: 29, low: 21, rain: 8, wind: 10, humidity: 66, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    // ---------- WEST BENGAL (hills) ----------
+
+    { city: "Darjeeling", district: "Darjeeling", state: "West Bengal",
+      lat: 27.04, lon: 88.26, elev: 2042,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 16, rain: 88, wind: 30, humidity: 90, soilMoisture: 76, slope: 30,
+      weather: "Heavy Rain & Fog",
+      forecast: [
+          { date: "14-Sep", high: 18, low: 12, rain: 74, wind: 26, humidity: 88, condition: "Moderate to Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 19, low: 13, rain: 46, wind: 20, humidity: 82, condition: "Light to Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Kalimpong", district: "Kalimpong", state: "West Bengal",
+      lat: 27.07, lon: 88.47, elev: 1250,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 18, rain: 78, wind: 26, humidity: 86, soilMoisture: 72, slope: 26,
+      weather: "Moderate Rain",
+      forecast: [
+          { date: "14-Sep", high: 20, low: 14, rain: 64, wind: 22, humidity: 84, condition: "Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 21, low: 15, rain: 38, wind: 18, humidity: 78, condition: "Light Rain", icon: "🌤️" }
+      ]
+    },
+
+    { city: "Siliguri", district: "Darjeeling", state: "West Bengal",
+      lat: 26.71, lon: 88.43, elev: 122,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 28, rain: 18, wind: 12, humidity: 72, soilMoisture: 38, slope: 3,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 30, low: 23, rain: 14, wind: 10, humidity: 70, condition: "Mostly Cloudy", icon: "☁️" },
+          { date: "15-Sep", high: 31, low: 24, rain: 6, wind: 8, humidity: 66, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    // ---------- J&K ----------
+
+    { city: "Kishtwar", district: "Kishtwar", state: "Jammu & Kashmir",
+      lat: 33.31, lon: 75.77, elev: 1638,
+      level: "ORANGE", alertClass: "bo", dotClass: "do",
+      temp: 16, rain: 114, wind: 38, humidity: 91, soilMoisture: 82, slope: 36,
+      weather: "Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 18, low: 12, rain: 98, wind: 34, humidity: 90, condition: "Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 20, low: 14, rain: 58, wind: 24, humidity: 82, condition: "Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Pahalgam", district: "Anantnag", state: "Jammu & Kashmir",
+      lat: 34.01, lon: 75.32, elev: 2130,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 14, rain: 58, wind: 22, humidity: 78, soilMoisture: 58, slope: 22,
+      weather: "Light Rain & Mist",
+      forecast: [
+          { date: "14-Sep", high: 16, low: 10, rain: 48, wind: 20, humidity: 76, condition: "Light Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 18, low: 12, rain: 24, wind: 14, humidity: 70, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Srinagar", district: "Srinagar", state: "Jammu & Kashmir",
+      lat: 34.08, lon: 74.79, elev: 1585,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 22, rain: 16, wind: 12, humidity: 68, soilMoisture: 36, slope: 4,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 24, low: 16, rain: 12, wind: 10, humidity: 66, condition: "Mostly Cloudy", icon: "☁️" },
+          { date: "15-Sep", high: 26, low: 18, rain: 4, wind: 8, humidity: 62, condition: "Clear Sky", icon: "☀️" }
+      ]
+    },
+
+    // ---------- SOUTH INDIA ----------
+
+    { city: "Ooty", district: "Nilgiris", state: "Tamil Nadu",
+      lat: 11.41, lon: 76.69, elev: 2240,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 14, rain: 66, wind: 28, humidity: 86, soilMoisture: 70, slope: 28,
+      weather: "Moderate Rain & Mist",
+      forecast: [
+          { date: "14-Sep", high: 16, low: 10, rain: 54, wind: 24, humidity: 84, condition: "Light to Moderate Rain", icon: "🌦️" },
+          { date: "15-Sep", high: 18, low: 12, rain: 32, wind: 18, humidity: 78, condition: "Mostly Cloudy", icon: "☁️" }
+      ]
+    },
+
+    { city: "Madikeri", district: "Kodagu", state: "Karnataka",
+      lat: 12.42, lon: 75.74, elev: 1152,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 19, rain: 86, wind: 28, humidity: 89, soilMoisture: 76, slope: 26,
+      weather: "Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 21, low: 16, rain: 72, wind: 24, humidity: 87, condition: "Moderate to Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 23, low: 18, rain: 44, wind: 18, humidity: 80, condition: "Light to Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    { city: "Mahabaleshwar", district: "Satara", state: "Maharashtra",
+      lat: 17.92, lon: 73.66, elev: 1353,
+      level: "YELLOW", alertClass: "by", dotClass: "dy",
+      temp: 18, rain: 94, wind: 34, humidity: 92, soilMoisture: 78, slope: 26,
+      weather: "Very Heavy Rain",
+      forecast: [
+          { date: "14-Sep", high: 20, low: 15, rain: 82, wind: 30, humidity: 90, condition: "Heavy Rain", icon: "🌧️" },
+          { date: "15-Sep", high: 22, low: 16, rain: 48, wind: 22, humidity: 84, condition: "Moderate Rain", icon: "🌦️" }
+      ]
+    },
+
+    // ---------- MAJOR METRO CITIES ----------
+
+    { city: "Delhi", district: "New Delhi", state: "Other Cities",
+      lat: 28.61, lon: 77.21, elev: 216,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 34, rain: 4, wind: 14, humidity: 58, soilMoisture: 20, slope: 1,
+      weather: "Hot & Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 36, low: 28, rain: 2, wind: 12, humidity: 56, condition: "Hot & Humid", icon: "☀️" },
+          { date: "15-Sep", high: 35, low: 27, rain: 6, wind: 14, humidity: 60, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Mumbai", district: "Mumbai", state: "Other Cities",
+      lat: 19.08, lon: 72.88, elev: 14,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 29, rain: 22, wind: 20, humidity: 78, soilMoisture: 42, slope: 2,
+      weather: "Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 31, low: 25, rain: 18, wind: 18, humidity: 76, condition: "Light Rain", icon: "🌤️" },
+          { date: "15-Sep", high: 32, low: 26, rain: 8, wind: 16, humidity: 72, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Bengaluru", district: "Bengaluru", state: "Other Cities",
+      lat: 12.97, lon: 77.59, elev: 920,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 26, rain: 8, wind: 14, humidity: 68, soilMoisture: 32, slope: 2,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 28, low: 20, rain: 6, wind: 12, humidity: 66, condition: "Partly Cloudy", icon: "⛅" },
+          { date: "15-Sep", high: 29, low: 21, rain: 4, wind: 10, humidity: 62, condition: "Clear Sky", icon: "☀️" }
+      ]
+    },
+
+    { city: "Kolkata", district: "Kolkata", state: "Other Cities",
+      lat: 22.57, lon: 88.36, elev: 9,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 32, rain: 12, wind: 16, humidity: 80, soilMoisture: 34, slope: 1,
+      weather: "Humid & Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 33, low: 26, rain: 8, wind: 14, humidity: 78, condition: "Mostly Cloudy", icon: "☁️" },
+          { date: "15-Sep", high: 34, low: 27, rain: 4, wind: 12, humidity: 74, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Chennai", district: "Chennai", state: "Other Cities",
+      lat: 13.08, lon: 80.27, elev: 6,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 34, rain: 0, wind: 16, humidity: 68, soilMoisture: 22, slope: 1,
+      weather: "Hot & Humid",
+      forecast: [
+          { date: "14-Sep", high: 35, low: 28, rain: 2, wind: 14, humidity: 70, condition: "Hot & Humid", icon: "☀️" },
+          { date: "15-Sep", high: 36, low: 29, rain: 0, wind: 14, humidity: 66, condition: "Clear & Hot", icon: "☀️" }
+      ]
+    },
+
+    { city: "Hyderabad", district: "Hyderabad", state: "Other Cities",
+      lat: 17.39, lon: 78.49, elev: 542,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 30, rain: 6, wind: 12, humidity: 64, soilMoisture: 26, slope: 2,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 32, low: 24, rain: 4, wind: 10, humidity: 62, condition: "Mostly Clear", icon: "☀️" },
+          { date: "15-Sep", high: 33, low: 25, rain: 8, wind: 12, humidity: 66, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Pune", district: "Pune", state: "Other Cities",
+      lat: 18.52, lon: 73.86, elev: 560,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 26, rain: 14, wind: 16, humidity: 70, soilMoisture: 36, slope: 4,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 28, low: 20, rain: 10, wind: 14, humidity: 68, condition: "Mostly Cloudy", icon: "☁️" },
+          { date: "15-Sep", high: 30, low: 22, rain: 4, wind: 12, humidity: 64, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    },
+
+    { city: "Chandigarh", district: "Chandigarh", state: "Other Cities",
+      lat: 30.73, lon: 76.78, elev: 321,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 32, rain: 10, wind: 14, humidity: 66, soilMoisture: 32, slope: 2,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 33, low: 25, rain: 8, wind: 12, humidity: 64, condition: "Partly Cloudy", icon: "⛅" },
+          { date: "15-Sep", high: 34, low: 26, rain: 4, wind: 10, humidity: 60, condition: "Mostly Clear", icon: "☀️" }
+      ]
+    },
+
+    { city: "Guwahati", district: "Kamrup Metro", state: "Other Cities",
+      lat: 26.14, lon: 91.74, elev: 55,
+      level: "GREEN", alertClass: "bg", dotClass: "dg",
+      temp: 30, rain: 18, wind: 14, humidity: 76, soilMoisture: 42, slope: 4,
+      weather: "Partly Cloudy",
+      forecast: [
+          { date: "14-Sep", high: 32, low: 24, rain: 14, wind: 12, humidity: 74, condition: "Mostly Cloudy", icon: "☁️" },
+          { date: "15-Sep", high: 33, low: 25, rain: 6, wind: 10, humidity: 70, condition: "Partly Cloudy", icon: "⛅" }
+      ]
+    }
+];
+
+
+// list of states in the order we want them to appear
+var stateList = [
+    "Uttarakhand", "Himachal Pradesh", "Sikkim", "Kerala",
+    "Meghalaya", "Arunachal Pradesh", "Mizoram", "Nagaland",
+    "Manipur", "West Bengal", "Jammu & Kashmir", "Tamil Nadu",
+    "Karnataka", "Maharashtra", "Other Cities"
+];
+
+
+// create state tab buttons
+var tabsContainer = document.getElementById("stateTabs");
+var tabsHTML = "";
+
+for (var i = 0; i < stateList.length; i++) {
+    var isFirst = (i === 0) ? " active" : "";
+    tabsHTML += '<button class="state-tab' + isFirst + '" onclick="selectState(\'' + stateList[i] + '\', this)">';
+    tabsHTML += stateList[i];
+    tabsHTML += '</button>';
+}
+
+tabsContainer.innerHTML = tabsHTML;
+
+
+// when user clicks a state tab
+function selectState(stateName, buttonElement) {
+
+    // highlight the clicked tab
+    var allTabs = document.querySelectorAll(".state-tab");
+    for (var i = 0; i < allTabs.length; i++) {
+        allTabs[i].className = "state-tab";
+    }
+    if (buttonElement) {
+        buttonElement.className = "state-tab active";
+    }
+
+    // filter cities for this state
+    var stateCities = [];
+    for (var j = 0; j < allCities.length; j++) {
+        if (allCities[j].state === stateName) {
+            stateCities.push(allCities[j]);
+        }
+    }
+
+    // build city chip buttons
+    var chipsHTML = "";
+    for (var k = 0; k < stateCities.length; k++) {
+        var c = stateCities[k];
+        chipsHTML += '<button class="city-chip" onclick="selectCity(\'' + c.city + '\', \'' + c.state + '\', this)">';
+        chipsHTML += '<span class="chip-dot ' + c.dotClass + '"></span>';
+        chipsHTML += c.city;
+        chipsHTML += '</button>';
+    }
+
+    document.getElementById("cityChips").innerHTML = chipsHTML;
+
+    // hide any open detail card
+    closeDetail();
+}
+
+
+// when user clicks a city chip
+function selectCity(cityName, stateName, chipButton) {
+
+    // highlight selected chip
+    var allChips = document.querySelectorAll(".city-chip");
+    for (var i = 0; i < allChips.length; i++) {
+        allChips[i].className = "city-chip";
+    }
+    if (chipButton) {
+        chipButton.className = "city-chip active";
+    }
+
+    // find the city data
+    var cityData = null;
+    for (var j = 0; j < allCities.length; j++) {
+        if (allCities[j].city === cityName && allCities[j].state === stateName) {
+            cityData = allCities[j];
+            break;
+        }
+    }
+
+    if (!cityData) return;  // shouldn't happen but just in case
+
+    // fill in the detail card
+    document.getElementById("cdTitle").textContent = cityData.city;
+    document.getElementById("cdSub").textContent = cityData.district + ", " + cityData.state;
+
+    document.getElementById("cdCoords").innerHTML =
+        '<span>📍 ' + cityData.lat.toFixed(2) + '°N, ' + cityData.lon.toFixed(2) + '°E</span>' +
+        '<span>↑ ' + cityData.elev + ' m</span>' +
+        '<span>⛰️ Slope ' + cityData.slope + '°</span>';
+
+    document.getElementById("cdBadge").innerHTML =
+        '<span class="b ' + cityData.alertClass + '">' + cityData.level + '</span>';
+
+    document.getElementById("cdStatus").innerHTML =
+        cityData.weather;
+
+    // current conditions grid
+    var gridHTML = '';
+    gridHTML += '<div class="cd-stat"><span class="cd-val">' + cityData.temp + '°C</span><span class="cd-name">Temperature</span></div>';
+    gridHTML += '<div class="cd-stat"><span class="cd-val">' + cityData.rain + ' mm</span><span class="cd-name">Rainfall (24h)</span></div>';
+    gridHTML += '<div class="cd-stat"><span class="cd-val">' + cityData.wind + ' km/h</span><span class="cd-name">Wind Speed</span></div>';
+    gridHTML += '<div class="cd-stat"><span class="cd-val">' + cityData.humidity + '%</span><span class="cd-name">Humidity</span></div>';
+    gridHTML += '<div class="cd-stat"><span class="cd-val">' + cityData.soilMoisture + '%</span><span class="cd-name">Soil Moisture</span></div>';
+    gridHTML += '<div class="cd-stat"><span class="cd-val">' + cityData.slope + '°</span><span class="cd-name">Slope Angle</span></div>';
+
+    document.getElementById("cdGrid").innerHTML = gridHTML;
+
+    // 2-day forecast
+    var forecastHTML = '';
+    for (var f = 0; f < cityData.forecast.length; f++) {
+        var day = cityData.forecast[f];
+        forecastHTML += '<div class="cd-fday">';
+        forecastHTML += '  <div class="cd-fdate">' + day.icon + ' ' + day.date + ' 2026</div>';
+        forecastHTML += '  <div class="cd-fweather">' + day.condition + '</div>';
+        forecastHTML += '  <div class="cd-fstats">';
+        forecastHTML += '    <span class="cd-fstat">🌡️ ' + day.low + '–' + day.high + '°C</span>';
+        forecastHTML += '    <span class="cd-fstat">🌧️ ' + day.rain + ' mm</span>';
+        forecastHTML += '    <span class="cd-fstat">💨 ' + day.wind + ' km/h</span>';
+        forecastHTML += '    <span class="cd-fstat">💧 ' + day.humidity + '%</span>';
+        forecastHTML += '  </div>';
+        forecastHTML += '</div>';
+    }
+
+    document.getElementById("cdForecast").innerHTML = forecastHTML;
+
+    // show the card and scroll to it
+    document.getElementById("cityDetail").className = "city-detail visible";
+    document.getElementById("cityDetail").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+
+function closeDetail() {
+    document.getElementById("cityDetail").className = "city-detail";
+}
+
+
+// load the first state on page load
+selectState(stateList[0], document.querySelector(".state-tab"));
+
+</script>
+
+</body>
+</html>

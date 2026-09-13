@@ -1,0 +1,917 @@
+/*
+    NLMS - National Landslide Monitoring System
+    Main stylesheet
+    Author: Web Team
+    Last modified: Sep 2026
+    NOTE: tested on chrome and edge, firefox might have minor scroll issues
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #eef1f5;
+    line-height: 1.65;
+}
+
+a {
+    color: #034da2;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+    color: #022d6e;
+}
+
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+
+/* tricolor bar at top and bottom */
+.tricolor { display: flex; height: 4px; }
+.tri-s { flex: 1; background: #FF9933; }
+.tri-w { flex: 1; background: white; }
+.tri-g { flex: 1; background: #138808; }
+
+/* thin bar below tricolor */
+.topbar-wrap {
+    background-color: #1a1a2e;
+}
+
+.topbar {
+    background-color: #1a1a2e;
+    color: #aab;
+    font-size: 11px;
+    padding: 5px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    letter-spacing: 0.3px;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+/* home / feedback / complaint buttons on top right */
+.topbar-right {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.top-btn {
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    border: none;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.top-btn-home {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.top-btn-home:hover {
+    background: rgba(255, 255, 255, 0.22);
+    color: white;
+    text-decoration: none;
+}
+
+.top-btn-feedback {
+    background: #FF9933;
+    color: white;
+}
+
+.top-btn-feedback:hover {
+    background: #e88a2a;
+    text-decoration: none;
+}
+
+.top-btn-complaint {
+    background: #d32f2f;
+    color: white;
+}
+
+.top-btn-complaint:hover {
+    background: #b71c1c;
+    text-decoration: none;
+}
+
+
+/* ---- HEADER SECTION ---- */
+.header {
+    background: linear-gradient(to bottom, #ffffff, #f7f9fc);
+    border-bottom: 3px solid #034da2;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 22px;
+    color: #1a1a6e;
+    letter-spacing: 0.5px;
+}
+
+.header .hindi {
+    font-size: 15px;
+    color: #555;
+    margin-top: 2px;
+}
+
+.header .ministry {
+    font-size: 11px;
+    color: #888;
+    margin-top: 4px;
+}
+
+
+/* navigation bar */
+nav {
+    background: #034da2;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+nav a {
+    display: block;
+    padding: 11px 22px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    transition: background 0.2s;
+}
+
+nav a:hover,
+nav a.active {
+    background: #022d6e;
+    text-decoration: none;
+}
+
+
+/* breadcrumb - used on inner pages */
+.crumb {
+    font-size: 12px;
+    color: #666;
+    padding: 8px 14px;
+    background: white;
+    border: 1px solid #ddd;
+    margin-bottom: 16px;
+    border-radius: 4px;
+}
+
+
+/* section headings */
+.stitle {
+    font-size: 15px;
+    color: #1a1a6e;
+    border-bottom: 2px solid #034da2;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.stitle small {
+    font-size: 11px;
+    color: #999;
+    text-transform: none;
+    font-weight: normal;
+    float: right;
+    margin-top: 3px;
+}
+
+
+/*
+    =============================================
+    CITY SLIDER - the blue section with state
+    tabs and city buttons
+    =============================================
+*/
+.slider-section {
+    background: linear-gradient(135deg, #034da2, #1a1a6e);
+    color: white;
+    padding: 20px 0 0 0;
+    margin-bottom: 18px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.slider-section h2 {
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 16px;
+}
+
+.slider-section > p {
+    font-size: 12px;
+    opacity: 0.75;
+    text-align: center;
+    margin: 4px 16px 14px 16px;
+}
+
+/* row of state names that you can scroll */
+.state-tabs {
+    display: flex;
+    overflow-x: auto;
+    background: rgba(0, 0, 0, 0.15);
+    /* hide ugly scrollbar on some browsers */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.state-tabs::-webkit-scrollbar { height: 4px; }
+.state-tabs::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+}
+
+.state-tab {
+    flex-shrink: 0;
+    padding: 9px 18px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    white-space: nowrap;
+    border: none;
+    background: transparent;
+    border-bottom: 3px solid transparent;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.state-tab:hover {
+    color: white;
+    background: rgba(255,255,255,0.08);
+}
+
+.state-tab.active {
+    color: white;
+    background: rgba(255,255,255,0.1);
+    border-bottom-color: #FF9933;  /* saffron highlight */
+}
+
+
+/* the pill-shaped city buttons */
+.city-chips-wrap {
+    padding: 12px 16px 14px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.city-chips-wrap::-webkit-scrollbar { height: 4px; }
+.city-chips-wrap::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+}
+
+.city-chips {
+    display: flex;
+    gap: 8px;
+    min-width: max-content;  /* prevent wrapping */
+}
+
+.city-chip {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.city-chip:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.city-chip.active {
+    background: #FF9933;
+    border-color: #FF9933;
+    color: white;
+}
+
+/* colored dot next to city name showing risk level */
+.chip-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.chip-dot.dr { background: #ff4444; }
+.chip-dot.do { background: #ff8c00; }
+.chip-dot.dy { background: #ffd600; }
+.chip-dot.dg { background: #4caf50; }
+
+
+/*
+    city detail card - shows up when you
+    click on a city chip
+*/
+.city-detail {
+    display: none;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+.city-detail.visible {
+    display: block;
+}
+
+.cd-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px 18px 10px 18px;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cd-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a6e;
+}
+
+.cd-sub {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+}
+
+.cd-coords {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.cd-coords span {
+    background: #f0f2f6;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+}
+
+.cd-status {
+    font-size: 12px;
+    color: #666;
+    padding: 8px 18px;
+    background: #fafbfd;
+    border-bottom: 1px solid #eee;
+}
+
+.cd-close {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #666;
+}
+
+.cd-close:hover { background: #eee; }
+
+/* weather stats grid inside detail card */
+.cd-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 18px 6px 18px;
+}
+
+.cd-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 18px 14px 18px;
+}
+
+.cd-stat {
+    flex: 1;
+    min-width: 90px;
+    background: #f4f6fa;
+    border: 1px solid #e8ebf0;
+    border-radius: 6px;
+    padding: 10px 8px;
+    text-align: center;
+}
+
+.cd-val {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a6e;
+}
+
+.cd-name {
+    display: block;
+    font-size: 10px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 3px;
+}
+
+/* 2-day forecast boxes */
+.cd-forecast {
+    display: flex;
+    gap: 10px;
+    padding: 0 18px 16px 18px;
+    flex-wrap: wrap;
+}
+
+.cd-fday {
+    flex: 1;
+    min-width: 200px;
+    border: 1px solid #e0e4ea;
+    border-radius: 6px;
+    padding: 12px;
+    background: #fafbfd;
+}
+
+.cd-fdate {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a6e;
+    margin-bottom: 2px;
+}
+
+.cd-fweather {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.cd-fstats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.cd-fstat {
+    font-size: 12px;
+    color: #555;
+    background: #eef1f7;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+
+/* ---- STATUS CARDS (red/orange/yellow/green) ---- */
+
+.cards {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.card {
+    flex: 1;
+    min-width: 130px;
+    text-align: center;
+    padding: 18px 10px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card .num {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.card .lbl {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 6px;
+    color: #444;
+}
+
+.card .sub {
+    font-size: 11px;
+    color: #999;
+    margin-top: 2px;
+}
+
+/* individual card colors */
+.card.r { border-left: 5px solid #d32f2f; background: #fef5f4; }
+.card.r .num { color: #d32f2f; }
+
+.card.o { border-left: 5px solid #e65100; background: #fff8f1; }
+.card.o .num { color: #e65100; }
+
+.card.y { border-left: 5px solid #f9a825; background: #fffef5; }
+.card.y .num { color: #bf8000; }
+
+.card.g { border-left: 5px solid #2e7d32; background: #f3faf4; }
+.card.g .num { color: #2e7d32; }
+
+
+/* white box wrapper */
+.panel {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+}
+
+
+/* ---- DATA TABLES ---- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th {
+    background: #034da2;
+    color: white;
+    padding: 9px 12px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* rounded corners on header row */
+th:first-child { border-radius: 4px 0 0 0; }
+th:last-child { border-radius: 0 4px 0 0; }
+
+td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:nth-child(even) {
+    background: #fafbfd;
+}
+
+tbody tr:hover {
+    background: #eef3fb;
+}
+
+.total-row {
+    background: #e8edf5 !important;
+    border-top: 2px solid #034da2;
+}
+
+.tnote {
+    font-size: 11px;
+    color: #999;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+
+/* alert level badges */
+.b {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.br { background: #d32f2f; color: white; }
+.bo { background: #e65100; color: white; }
+.by { background: #f9a825; color: #333; }
+.bg { background: #2e7d32; color: white; }
+
+
+/* ---- TWO COLUMN LAYOUT ---- */
+
+.cols {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.col-main {
+    flex: 2;
+    min-width: 0;  /* prevents overflow */
+}
+
+.col-side {
+    flex: 1;
+    min-width: 260px;
+}
+
+
+/* sidebar boxes */
+.sbox {
+    background: white;
+    border: 1px solid #ddd;
+    margin-bottom: 14px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.sbox h3 {
+    font-size: 13px;
+    color: white;
+    background: #034da2;
+    padding: 9px 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.sbox-body {
+    padding: 12px 14px;
+}
+
+.sbox ul { list-style: none; }
+
+.sbox li {
+    padding: 5px 0;
+    border-bottom: 1px dotted #e5e5e5;
+    font-size: 13px;
+}
+
+.sbox li:last-child { border-bottom: none; }
+
+.sbox li::before {
+    content: "» ";
+    color: #034da2;
+    font-weight: 700;
+}
+
+
+/* emergency helpline box */
+.helpline {
+    text-align: center;
+    background: #fef5f4;
+    border-color: #e8c0c0;
+}
+
+.helpline .big {
+    font-size: 26px;
+    font-weight: 700;
+    color: #d32f2f;
+    letter-spacing: 2px;
+    margin-top: 4px;
+}
+
+.helpline .sm {
+    font-size: 20px;
+    font-weight: 700;
+    color: #d32f2f;
+    margin-top: 10px;
+    letter-spacing: 2px;
+}
+
+.helpline p {
+    font-size: 11px;
+    color: #777;
+    margin-top: 2px;
+}
+
+
+/* dos and donts list */
+.do-title {
+    font-size: 13px;
+    color: #2e7d32;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.dnt-title {
+    font-size: 13px;
+    color: #c62828;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.tips {
+    list-style: none;
+    padding-left: 4px;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.tips li {
+    padding: 2px 0;
+    padding-left: 14px;
+    position: relative;
+}
+
+.tips li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+}
+
+.do-list li::before { color: #2e7d32; }
+.dnt-list li::before { color: #c62828; }
+
+
+/* ordered list for guidelines page */
+.gl {
+    padding-left: 24px;
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+.gl li {
+    padding: 3px 0;
+    margin-bottom: 4px;
+}
+
+
+/* contact form elements */
+.frow { margin-bottom: 12px; }
+
+.frow label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #444;
+}
+
+.frow .req { color: #c00; }
+
+.finput,
+.fselect,
+.ftextarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+    background: white;
+    transition: border-color 0.2s;
+}
+
+.finput:focus,
+.fselect:focus,
+.ftextarea:focus {
+    outline: none;
+    border-color: #034da2;
+    box-shadow: 0 0 0 2px rgba(3, 77, 162, 0.15);
+}
+
+.fbtn {
+    display: inline-block;
+    padding: 9px 24px;
+    background: #034da2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-right: 8px;
+    transition: background 0.2s;
+}
+
+.fbtn:hover { background: #022d6e; }
+.fbtn-reset { background: #888; }
+.fbtn-reset:hover { background: #666; }
+
+
+/* misc */
+.pginfo {
+    font-size: 12px;
+    color: #777;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+
+.view-all {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #034da2;
+}
+
+/* page footer */
+footer {
+    background: #1a1a2e;
+    color: #999;
+    padding: 22px 0;
+    font-size: 11px;
+    text-align: center;
+    letter-spacing: 0.2px;
+}
+
+footer p { margin: 3px 0; }
+footer a { color: #8ab4f8; }
+
+main {
+    padding: 18px 16px;
+}
+
+
+/* ---- MOBILE RESPONSIVE ---- */
+/* TODO: test on actual phone, might need more tweaks */
+
+@media (max-width: 768px) {
+
+    .header h1 { font-size: 17px; }
+
+    nav a {
+        padding: 9px 13px;
+        font-size: 12px;
+    }
+
+    .cards { flex-direction: column; }
+    .cols { flex-direction: column; }
+
+    .stitle small {
+        float: none;
+        display: block;
+    }
+
+    td, th {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .cd-header { flex-direction: column; }
+
+    .cd-grid { gap: 6px; }
+
+    .cd-stat {
+        min-width: 70px;
+        padding: 8px 4px;
+    }
+
+    .cd-val { font-size: 14px; }
+
+    .cd-forecast { flex-direction: column; }
+
+    .state-tab {
+        padding: 8px 14px;
+        font-size: 11px;
+    }
+
+    .city-chip {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
